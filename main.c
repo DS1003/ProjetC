@@ -4,8 +4,8 @@
 #include <unistd.h>
 
 
-#define LONGUEUR_MAX_LOGIN 20
-#define LONGUEUR_MAX_MDP 20
+#define LONGUEUR_MAX_LOGIN 15
+#define LONGUEUR_MAX_MDP 15
 
 // Structure pour stocker les informations de connexion
 typedef struct {
@@ -118,21 +118,18 @@ int main() {
             continue;
         }
 
-        if (!(verifierIdentifiants(identifiantsAdmin, nombreIdentifiantsAdmin, saisieLogin, saisieMotDePasse)) || !(verifierIdentifiants(identifiantsEtudiant, nombreIdentifiantsEtudiant, saisieLogin, saisieMotDePasse))) {
+        // Vérification des identifiants
+        if (verifierIdentifiants(identifiantsAdmin, nombreIdentifiantsAdmin, saisieLogin, saisieMotDePasse)) {
+            // Menu pour l'admin
+            menuAdmin();
+        } else if (verifierIdentifiants(identifiantsEtudiant, nombreIdentifiantsEtudiant, saisieLogin, saisieMotDePasse)) {
+            // Menu pour l'étudiant
+            menuEtudiant();
+        } else {
             printf("Login ou mot de passe invalides.\n");
         }
 
     } while (!(verifierIdentifiants(identifiantsAdmin, nombreIdentifiantsAdmin, saisieLogin, saisieMotDePasse)) || !(verifierIdentifiants(identifiantsEtudiant, nombreIdentifiantsEtudiant, saisieLogin, saisieMotDePasse)));
-
-
-    // Vérification des identifiants
-    if (verifierIdentifiants(identifiantsAdmin, nombreIdentifiantsAdmin, saisieLogin, saisieMotDePasse)) {
-        // Menu pour l'admin
-        menuAdmin();
-    } else if (verifierIdentifiants(identifiantsEtudiant, nombreIdentifiantsEtudiant, saisieLogin, saisieMotDePasse)) {
-        // Menu pour l'étudiant
-        menuEtudiant();
-    } else 
 
     return 0;
 }
