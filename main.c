@@ -6,7 +6,7 @@
 #include <termios.h>
 #include <ctype.h>
 
-//-------------------------------------------
+//---------------------- Cacher mot de passe par '*' ---------------------
 #ifdef _WIN32
 #include <conio.h>
 #else
@@ -26,7 +26,6 @@ char getch()
     return ch;
 }
 #endif
-
 
 
 #define LONGUEUR_MAX_LOGIN 10
@@ -64,7 +63,7 @@ void enregistrerPresence(char *matricule) {
         printf("Erreur lors de l'ouverture du fichier de présence.\n");
         return;
     }
-
+    
     // Récupérer la date et l'heure  actuelle
     time_t now = time(NULL);
     struct tm *timeinfo = localtime(&now);
@@ -125,7 +124,6 @@ void marquerPresence() {
     }
 }
 
-
 int menuAdmin() {
     int choix = 0;
     do {
@@ -183,6 +181,7 @@ void viderBuffer() {
     while ((c = getchar()) != '\n' && c != EOF); // Lire et ignorer les caractères jusqu'à la fin de la ligne ou la fin du fichier
 }
 
+
 //-------------------------------------------------------- Main -------------------------------------------------------
 int main() {
     // Création des fichiers pour stocker les identifiants
@@ -220,6 +219,7 @@ int main() {
 
     // Authentification
     do {
+        system("clear");
         printf("---------------- Connexion ----------------\n\n");
         saisieLogin[LONGUEUR_MAX_LOGIN] = '\0';
         printf("----- login : ");
@@ -261,7 +261,7 @@ int main() {
         }
         if ((verifierIdentifiants(identifiantsAdmin, nombreIdentifiantsAdmin, saisieLogin, saisieMotDePasse))) {
             do {
-                
+                system("clear");
                 printf("\n--------------------------------------------------------------------------\n");
                 printf("\t\t\tBienvenue dans le menu de l'administrateur:\n");
                 printf("--------------------------------------------------------------------------\n");
@@ -274,6 +274,7 @@ int main() {
                 printf("\n--- Entrez votre choix : ");
                 scanf("%d", &choix);
                 if (choix == 3) {
+                    system("clear");
                     marquerPresence();
                     do {
                         viderBuffer();
@@ -293,7 +294,9 @@ int main() {
                         saisieMotDePasse[i] = '\0';
 
                         if (!(verifierIdentifiants(identifiantsAdmin, nombreIdentifiantsAdmin, saisieLogin, saisieMotDePasse))) {
-                            
+                            printf("\n--- ⛔ Vous n'êtes pas l'admin !!!\n");
+                            getchar();
+                            system("clear");
                             marquerPresence();
                         } else { // Appel de la fonction après la saisie du mot de passe correct
                         }
@@ -323,6 +326,7 @@ int main() {
                 scanf("%d", &choix);
                 if (choix < 1 || choix > 5) {
                     printf("Choix invalide. Veuillez entrer un choix entre  1 et 5.\n");
+                    system("clear");
                 }
                 if (choix == 3) {
 
@@ -369,6 +373,7 @@ int main() {
 
                 }
                 if (choix == 5) {
+                    system("clear");
                     printf("Vous êtes déconnecté !\n");
                     saisieLogin[LONGUEUR_MAX_LOGIN] = 'a';
                 }
