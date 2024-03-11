@@ -344,7 +344,7 @@ int main() {
                             printf("\n--- ❌ L'étudiant de matricule %s est déjà marqué présent.\n", matricule);
                             present = 1;
                             break;
-                        }
+                        } 
                     }
 
                     fclose(fichierPresence);
